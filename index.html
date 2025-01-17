@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشروع حياة - مركز دير الزور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2196F3;
+            color: #000; /* لون أسود */
+            padding: 20px;
+            text-align: center;
+            font-size: 48px; /* حجم أكبر */
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* تأثير ثلاثي الأبعاد */
+        }
+        .news-ticker {
+            background-color: #81D4FA;
+            color: black;
+            padding: 10px;
+            text-align: center; /* جعل النص في الوسط */
+            font-weight: bold;
+            font-size: 20px; /* حجم خط أكبر */
+        }
+        .boxes-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            margin-bottom: 120px; /* إضافة هامش سفلي لتجنب التداخل مع الأزرار */
+        }
+        .box {
+            background-color: #B3E5FC;
+            padding: 30px; /* زيادة الحشو */
+            margin: 10px;
+            text-align: center;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 3px solid #2196F3; /* إطار للمربعات */
+            border-radius: 10px; /* زوايا مدورة */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box:hover {
+            background-color: #81D4FA;
+        }
+        .box .plus-minus {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        .box .plus-minus:hover {
+            opacity: 1;
+        }
+        .box .content h3 {
+            color: black; /* لون النص */
+            font-size: 20px; /* حجم النص */
+            margin: 0;
+        }
+        .box .content p {
+            color: #0D47A1; /* لون الرقم */
+            font-size: 60px; /* حجم الرقم */
+            font-weight: bold;
+            margin: 10px 0 0;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* تأثير ثلاثي الأبعاد */
+        }
+        .box.large {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            font-size: 100px; /* حجم كبير جدًا عند التكبير */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(179, 229, 252, 0.95);
+            border: none; /* إزالة الإطار عند التكبير */
+        }
+        .box.large .content h3 {
+            font-size: 60px; /* حجم النص الكبير */
+        }
+        .box.large .content p {
+            font-size: 200px; /* حجم الرقم الكبير */
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* تأثير ثلاثي الأبعاد أكبر */
+        }
+        .controls {
+            text-align: center;
+            padding: 20px;
+            background-color: #2196F3;
+            position: fixed;
+            bottom: 40px; /* وضع الأزرار فوق الهامش السفلي */
+            left: 0;
+            right: 0;
+            z-index: 999; /* التأكد من أن الأزرار تكون خلف المربع المكبر */
+        }
+        .controls button {
+            background-color: #1976D2;
+            color: white;
+            border: none;
+            padding: 15px 25px; /* زيادة حجم الأزرار */
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px; /* زوايا مدورة للأزرار */
+            transition: background-color 0.3s ease;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* تأثير ثلاثي الأبعاد */
+        }
+        .controls button:hover {
+            background-color: #0D47A1;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* تأثير ثلاثي الأبعاد أكبر عند التحويم */
+        }
+        footer {
+            text-align: right; /* تحريك النص إلى اليمين */
+            padding: 10px;
+            font-size: 12px;
+            background-color: #2196F3;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    مشروع حياة - مركز دير الزور
+</header>
+
+<div class="news-ticker">
+    <div id="newsText">مشروع الرعاية الصحية الاولية والتغذية للسكان في محافظة دير الزور المنفذ من قبل جمعية تكاتف شبابي بتمويل من منظمة اليونيسف</div>
+</div>
+
+<div class="boxes-container" id="boxesContainer">
+    <!-- المربعات ستضاف هنا -->
+</div>
+
+<div class="controls">
+    <button onclick="addBox()">إضافة قسم</button>
+    <button onclick="deleteBox()">حذف قسم</button>
+    <button onclick="resetNumbers()">يوم جديد</button>
+</div>
+
+<footer>
+    برمجة عدنان خليف الشيحان
+</footer>
+
+<script>
+    let boxes = [];
+    let voice = window.speechSynthesis;
+    let currentVoice = 0;
+    let voices = [];
+    let newsTextElement = document.getElementById('newsText');
+
+    function populateVoices() {
+        voices = voice.getVoices().filter(v => v.lang.startsWith('ar'));
+    }
+
+    populateVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function speak(text) {
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = voices[currentVoice];
+        voice.speak(utterance);
+        // تكرار القراءة مرة أخرى
+        setTimeout(() => {
+            voice.speak(utterance);
+        }, 1000); // تأخير 1 ثانية قبل التكرار
+    }
+
+    function saveData() {
+        let boxesData = boxes.map(box => ({
+            title: box.querySelector('h3').textContent,
+            number: box.querySelector('p').textContent
+        }));
+        localStorage.setItem('boxesData', JSON.stringify(boxesData));
+    }
+
+    function loadData() {
+        let boxesData = JSON.parse(localStorage.getItem('boxesData')) || [];
+        boxesData.forEach(data => {
+            addBox(data.title, data.number);
+        });
+    }
+
+    function addBox(title = null, number = 0) {
+        let boxTitle = title || prompt("أدخل عنوان المربع:");
+        if (!boxTitle) return;
+
+        let box = document.createElement('div');
+        box.className = 'box';
+        box.innerHTML = `
+            <div class="plus-minus" onclick="increaseNumber(event, this)">+</div>
+            <div class="plus-minus" onclick="decreaseNumber(event, this)" style="top: 30px;">-</div>
+            <div class="content">
+                <h3>${boxTitle}</h3>
+                <p>${number}</p>
+            </div>
+        `;
+        box.onclick = function() {
+            let currentNumber = parseInt(this.querySelector('p').textContent);
+            this.querySelector('p').textContent = currentNumber + 1;
+            saveData();
+            this.classList.add('large');
+            speak(this.querySelector('h3').textContent + ' ' + this.querySelector('p').textContent);
+            setTimeout(() => {
+                this.classList.remove('large');
+            }, 5000);
+        };
+        document.getElementById('boxesContainer').appendChild(box);
+        boxes.push(box);
+        adjustBoxSizes();
+        saveData();
+    }
+
+    function deleteBox() {
+        if (boxes.length > 0) {
+            let lastBox = boxes.pop();
+            lastBox.remove();
+            adjustBoxSizes();
+            saveData();
+        }
+    }
+
+    function adjustBoxSizes() {
+        let size = 100 / boxes.length;
+        boxes.forEach(box => {
+            box.style.flex = `1 1 ${size}%`;
+        });
+    }
+
+    function increaseNumber(event, element) {
+        event.stopPropagation();
+        let number = element.parentElement.querySelector('p');
+        number.textContent = parseInt(number.textContent) + 1;
+        saveData();
+    }
+
+    function decreaseNumber(event, element) {
+        event.stopPropagation();
+        let number = element.parentElement.querySelector('p');
+        number.textContent = Math.max(0, parseInt(number.textContent) - 1);
+        saveData();
+    }
+
+    function resetNumbers() {
+        boxes.forEach(box => {
+            box.querySelector('p').textContent = 0;
+        });
+        saveData();
+    }
+
+    // تحميل البيانات المحفوظة عند بدء التشغيل
+    loadData();
+</script>
+
+</body>
+</html>
