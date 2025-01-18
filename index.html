@@ -14,38 +14,41 @@
         }
         header {
             background-color: #2196F3;
-            color: #000; /* لون أسود */
+            color: #000;
             padding: 20px;
             text-align: center;
-            font-size: 48px; /* حجم أكبر */
+            font-size: 48px;
             font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* تأثير ثلاثي الأبعاد */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
         }
         .news-ticker {
             background-color: #81D4FA;
             color: black;
             padding: 10px;
-            text-align: center; /* جعل النص في الوسط */
+            text-align: center;
             font-weight: bold;
-            font-size: 20px; /* حجم خط أكبر */
+            font-size: 20px;
         }
         .boxes-container {
             display: flex;
-            justify-content: space-around;
+            flex-wrap: wrap;
+            justify-content: flex-start;
             padding: 20px;
-            margin-bottom: 120px; /* إضافة هامش سفلي لتجنب التداخل مع الأزرار */
+            margin-bottom: 120px;
         }
         .box {
             background-color: #B3E5FC;
-            padding: 30px; /* زيادة الحشو */
+            padding: 20px;
             margin: 10px;
             text-align: center;
             cursor: pointer;
-            flex: 1;
+            flex: 1 1 200px; /* عرض ثابت للمربعات */
+            min-width: 200px; /* الحد الأدنى للعرض */
+            max-width: 300px; /* الحد الأقصى للعرض */
             transition: all 0.3s ease;
             position: relative;
-            border: 3px solid #2196F3; /* إطار للمربعات */
-            border-radius: 10px; /* زوايا مدورة */
+            border: 3px solid #2196F3;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,16 +68,16 @@
             opacity: 1;
         }
         .box .content h3 {
-            color: black; /* لون النص */
-            font-size: 20px; /* حجم النص */
+            color: black;
+            font-size: 20px;
             margin: 0;
         }
         .box .content p {
-            color: #0D47A1; /* لون الرقم */
-            font-size: 60px; /* حجم الرقم */
+            color: #0D47A1;
+            font-size: 60px;
             font-weight: bold;
             margin: 10px 0 0;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* تأثير ثلاثي الأبعاد */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
         }
         .box.large {
             position: fixed;
@@ -83,48 +86,48 @@
             width: 100%;
             height: 100%;
             z-index: 1000;
-            font-size: 100px; /* حجم كبير جدًا عند التكبير */
+            font-size: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: rgba(179, 229, 252, 0.95);
-            border: none; /* إزالة الإطار عند التكبير */
+            border: none;
         }
         .box.large .content h3 {
-            font-size: 60px; /* حجم النص الكبير */
+            font-size: 60px;
         }
         .box.large .content p {
-            font-size: 200px; /* حجم الرقم الكبير */
-            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* تأثير ثلاثي الأبعاد أكبر */
+            font-size: 200px;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         }
         .controls {
             text-align: center;
             padding: 20px;
             background-color: #2196F3;
             position: fixed;
-            bottom: 40px; /* وضع الأزرار فوق الهامش السفلي */
+            bottom: 40px;
             left: 0;
             right: 0;
-            z-index: 999; /* التأكد من أن الأزرار تكون خلف المربع المكبر */
+            z-index: 999;
         }
         .controls button {
             background-color: #1976D2;
             color: white;
             border: none;
-            padding: 15px 25px; /* زيادة حجم الأزرار */
+            padding: 15px 25px;
             margin: 5px;
             cursor: pointer;
             font-size: 16px;
-            border-radius: 5px; /* زوايا مدورة للأزرار */
+            border-radius: 5px;
             transition: background-color 0.3s ease;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* تأثير ثلاثي الأبعاد */
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
         }
         .controls button:hover {
             background-color: #0D47A1;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* تأثير ثلاثي الأبعاد أكبر عند التحويم */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         }
         footer {
-            text-align: right; /* تحريك النص إلى اليمين */
+            text-align: right;
             padding: 10px;
             font-size: 12px;
             background-color: #2196F3;
@@ -133,6 +136,22 @@
             bottom: 0;
             left: 0;
             right: 0;
+        }
+        @media (max-width: 768px) {
+            .box {
+                flex: 1 1 100%; /* عرض كامل على الشاشات الصغيرة */
+                min-width: 100%;
+                max-width: 100%;
+            }
+            header {
+                font-size: 36px;
+            }
+            .box .content p {
+                font-size: 40px;
+            }
+            .box.large .content p {
+                font-size: 100px;
+            }
         }
     </style>
 </head>
@@ -180,10 +199,9 @@
         let utterance = new SpeechSynthesisUtterance(text);
         utterance.voice = voices[currentVoice];
         voice.speak(utterance);
-        // تكرار القراءة مرة أخرى
         setTimeout(() => {
             voice.speak(utterance);
-        }, 1000); // تأخير 1 ثانية قبل التكرار
+        }, 1000);
     }
 
     function saveData() {
@@ -227,7 +245,6 @@
         };
         document.getElementById('boxesContainer').appendChild(box);
         boxes.push(box);
-        adjustBoxSizes();
         saveData();
     }
 
@@ -235,16 +252,8 @@
         if (boxes.length > 0) {
             let lastBox = boxes.pop();
             lastBox.remove();
-            adjustBoxSizes();
             saveData();
         }
-    }
-
-    function adjustBoxSizes() {
-        let size = 100 / boxes.length;
-        boxes.forEach(box => {
-            box.style.flex = `1 1 ${size}%`;
-        });
     }
 
     function increaseNumber(event, element) {
@@ -268,7 +277,6 @@
         saveData();
     }
 
-    // تحميل البيانات المحفوظة عند بدء التشغيل
     loadData();
 </script>
 
