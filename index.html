@@ -7,151 +7,158 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e0f7fa;
-            color: #000;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            color: #333;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #2196F3;
-            color: #000;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: #fff;
             padding: 20px;
             text-align: center;
-            font-size: 48px;
+            font-size: 36px;
             font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 20px;
+            transform: perspective(500px) rotateX(10deg);
         }
         .news-ticker {
-            background-color: #81D4FA;
-            color: black;
-            padding: 10px;
+            background: linear-gradient(135deg, #81D4FA, #4FC3F7);
+            color: #000;
+            padding: 15px;
             text-align: center;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 20px;
+            transform: perspective(500px) rotateX(10deg);
         }
         .boxes-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: flex-start;
+            justify-content: space-around;
             padding: 20px;
             margin-bottom: 120px;
         }
         .box {
-            background-color: #B3E5FC;
+            background: linear-gradient(135deg, #B3E5FC, #81D4FA);
             padding: 20px;
             margin: 10px;
             text-align: center;
             cursor: pointer;
-            flex: 1 1 200px; /* عرض ثابت للمربعات */
-            min-width: 200px; /* الحد الأدنى للعرض */
-            max-width: 300px; /* الحد الأقصى للعرض */
+            flex: 1 1 200px;
             transition: all 0.3s ease;
             position: relative;
-            border: 3px solid #2196F3;
-            border-radius: 10px;
+            border: 2px solid #2196F3;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transform: perspective(500px) rotateX(10deg);
         }
         .box:hover {
-            background-color: #81D4FA;
+            transform: perspective(500px) rotateX(10deg) translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
         }
         .box .plus-minus {
             position: absolute;
             top: 5px;
             right: 5px;
-            font-size: 20px;
-            opacity: 0.5;
+            font-size: 18px;
+            opacity: 0.7;
             cursor: pointer;
+            color: #000;
         }
         .box .plus-minus:hover {
             opacity: 1;
         }
+        .box .close-btn {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 18px;
+            opacity: 0.2; /* شفافية عالية */
+            cursor: pointer;
+            color: #000;
+            transition: opacity 0.3s ease;
+        }
+        .box .close-btn:hover {
+            opacity: 0.7; /* زيادة الشفافية عند التحويم */
+        }
         .box .content h3 {
-            color: black;
-            font-size: 20px;
+            color: #000;
+            font-size: 18px;
             margin: 0;
+            font-weight: bold;
         }
         .box .content p {
-            color: #0D47A1;
-            font-size: 60px;
+            color: #000;
+            font-size: 40px;
             font-weight: bold;
             margin: 10px 0 0;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         .box.large {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 4cm;
+            left: 4cm;
+            right: 4cm;
+            bottom: 4cm;
             z-index: 1000;
-            font-size: 100px;
+            font-size: 150px; /* حجم أكبر للأرقام */
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(179, 229, 252, 0.95);
-            border: none;
-        }
-        .box.large .content h3 {
-            font-size: 60px;
+            background: linear-gradient(135deg, #B3E5FC, #81D4FA);
+            border: 2px solid #2196F3;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+            transform: none; /* إزالة التأثير ثلاثي الأبعاد */
         }
         .box.large .content p {
-            font-size: 200px;
-            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+            font-size: 200px; /* حجم أكبر للأرقام عند التكبير */
         }
         .controls {
             text-align: center;
             padding: 20px;
-            background-color: #2196F3;
-            position: fixed;
-            bottom: 40px;
-            left: 0;
-            right: 0;
-            z-index: 999;
-        }
-        .controls button {
-            background-color: #1976D2;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            margin: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-        }
-        .controls button:hover {
-            background-color: #0D47A1;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-        }
-        footer {
-            text-align: right;
-            padding: 10px;
-            font-size: 12px;
-            background-color: #2196F3;
-            color: white;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
+            z-index: 999;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+            transform: perspective(500px) rotateX(10deg);
         }
-        @media (max-width: 768px) {
-            .box {
-                flex: 1 1 100%; /* عرض كامل على الشاشات الصغيرة */
-                min-width: 100%;
-                max-width: 100%;
-            }
-            header {
-                font-size: 36px;
-            }
-            .box .content p {
-                font-size: 40px;
-            }
-            .box.large .content p {
-                font-size: 100px;
-            }
+        .controls button {
+            background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+        }
+        .controls button:hover {
+            background: linear-gradient(135deg, #29B6F6, #4FC3F7);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 20px; /* النص على اليمين */
+            font-size: 16px; /* حجم الخط */
+            color: #000; /* لون الخط أسود */
+            font-weight: bold; /* خط عريض */
+            z-index: 1000; /* التأكد من ظهوره فوق العناصر الأخرى */
         }
     </style>
 </head>
@@ -175,9 +182,10 @@
     <button onclick="resetNumbers()">يوم جديد</button>
 </div>
 
-<footer>
+<!-- الشريط السفلي -->
+<div class="footer">
     برمجة عدنان خليف الشيحان
-</footer>
+</div>
 
 <script>
     let boxes = [];
@@ -186,8 +194,14 @@
     let voices = [];
     let newsTextElement = document.getElementById('newsText');
 
+    // تحميل الأصوات العربية
     function populateVoices() {
         voices = voice.getVoices().filter(v => v.lang.startsWith('ar'));
+        if (voices.length === 0) {
+            console.warn('لم يتم العثور على أصوات عربية.');
+        } else {
+            currentVoice = 0; // استخدام الصوت العربي الأول
+        }
     }
 
     populateVoices();
@@ -195,15 +209,23 @@
         speechSynthesis.onvoiceschanged = populateVoices;
     }
 
+    // التحدث بالنص والرقم
     function speak(text) {
+        if (voice.speaking) {
+            voice.cancel(); // إيقاف أي كلام جاري
+        }
         let utterance = new SpeechSynthesisUtterance(text);
         utterance.voice = voices[currentVoice];
+        utterance.lang = 'ar'; // التأكد من استخدام اللغة العربية
         voice.speak(utterance);
+
+        // تكرار القراءة مرة أخرى بعد 1 ثانية
         setTimeout(() => {
             voice.speak(utterance);
         }, 1000);
     }
 
+    // حفظ البيانات في localStorage
     function saveData() {
         let boxesData = boxes.map(box => ({
             title: box.querySelector('h3').textContent,
@@ -212,6 +234,7 @@
         localStorage.setItem('boxesData', JSON.stringify(boxesData));
     }
 
+    // تحميل البيانات من localStorage
     function loadData() {
         let boxesData = JSON.parse(localStorage.getItem('boxesData')) || [];
         boxesData.forEach(data => {
@@ -219,6 +242,7 @@
         });
     }
 
+    // إضافة مربع جديد
     function addBox(title = null, number = 0) {
         let boxTitle = title || prompt("أدخل عنوان المربع:");
         if (!boxTitle) return;
@@ -228,6 +252,7 @@
         box.innerHTML = `
             <div class="plus-minus" onclick="increaseNumber(event, this)">+</div>
             <div class="plus-minus" onclick="decreaseNumber(event, this)" style="top: 30px;">-</div>
+            <div class="close-btn" onclick="closeLargeBox(event)">❌</div>
             <div class="content">
                 <h3>${boxTitle}</h3>
                 <p>${number}</p>
@@ -241,13 +266,23 @@
             speak(this.querySelector('h3').textContent + ' ' + this.querySelector('p').textContent);
             setTimeout(() => {
                 this.classList.remove('large');
-            }, 5000);
+            }, 5000); // إخفاء المربع بعد 5 ثوانٍ
         };
         document.getElementById('boxesContainer').appendChild(box);
         boxes.push(box);
         saveData();
     }
 
+    // إغلاق المربع المكبر
+    function closeLargeBox(event) {
+        event.stopPropagation();
+        let largeBox = document.querySelector('.box.large');
+        if (largeBox) {
+            largeBox.classList.remove('large');
+        }
+    }
+
+    // حذف آخر مربع
     function deleteBox() {
         if (boxes.length > 0) {
             let lastBox = boxes.pop();
@@ -256,6 +291,7 @@
         }
     }
 
+    // زيادة الرقم داخل المربع
     function increaseNumber(event, element) {
         event.stopPropagation();
         let number = element.parentElement.querySelector('p');
@@ -263,6 +299,7 @@
         saveData();
     }
 
+    // تقليل الرقم داخل المربع
     function decreaseNumber(event, element) {
         event.stopPropagation();
         let number = element.parentElement.querySelector('p');
@@ -270,6 +307,7 @@
         saveData();
     }
 
+    // إعادة تعيين الأرقام
     function resetNumbers() {
         boxes.forEach(box => {
             box.querySelector('p').textContent = 0;
@@ -277,6 +315,7 @@
         saveData();
     }
 
+    // تحميل البيانات عند بدء التشغيل
     loadData();
 </script>
 
